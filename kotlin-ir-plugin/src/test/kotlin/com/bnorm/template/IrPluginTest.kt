@@ -23,38 +23,38 @@ import org.jetbrains.kotlin.compiler.plugin.ComponentRegistrar
 import org.junit.Test
 
 class IrPluginTest {
-  @Test
-  fun `IR plugin success`() {
-    val result = compile(
-      sourceFile = SourceFile.kotlin(
-        "main.kt", """
+    @Test
+    fun `IR plugin success`() {
+        val result = compile(
+            sourceFile = SourceFile.kotlin(
+                "main.kt", """
 fun main() {
   println(debug())
 }
 
 fun debug() = "Hello, World!"
 """
-      )
-    )
-    assertEquals(KotlinCompilation.ExitCode.OK, result.exitCode)
-  }
+            )
+        )
+        assertEquals(KotlinCompilation.ExitCode.OK, result.exitCode)
+    }
 }
 
 fun compile(
-  sourceFiles: List<SourceFile>,
-  plugin: ComponentRegistrar = TemplateComponentRegistrar(),
+    sourceFiles: List<SourceFile>,
+    plugin: ComponentRegistrar = TemplateComponentRegistrar(),
 ): KotlinCompilation.Result {
-  return KotlinCompilation().apply {
-    sources = sourceFiles
-    useIR = true
-    compilerPlugins = listOf(plugin)
-    inheritClassPath = true
-  }.compile()
+    return KotlinCompilation().apply {
+        sources = sourceFiles
+        useIR = true
+        compilerPlugins = listOf(plugin)
+        inheritClassPath = true
+    }.compile()
 }
 
 fun compile(
-  sourceFile: SourceFile,
-  plugin: ComponentRegistrar = TemplateComponentRegistrar(),
+    sourceFile: SourceFile,
+    plugin: ComponentRegistrar = TemplateComponentRegistrar(),
 ): KotlinCompilation.Result {
-  return compile(listOf(sourceFile), plugin)
+    return compile(listOf(sourceFile), plugin)
 }
